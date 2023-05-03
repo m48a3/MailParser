@@ -59,7 +59,7 @@ for i in range(numOfMessages, numOfMessages - 10, -1):
                 name, address = email.utils.parseaddr(msg['From'])
                 if(address.find("ivankov2001@gmail.com") != -1):
 
-                    print(email.utils.parseaddr(msg['From']))
+                    # print(email.utils.parseaddr(msg['From']))
                     subject, From = obtain_header(msg)
 
                     if msg.is_multipart():
@@ -75,7 +75,9 @@ for i in range(numOfMessages, numOfMessages - 10, -1):
                                 pass
 
                             if content_type == "text/plain" and "attachment" not in content_disposition:
-                                print(body)
+                                start_idx = body.find("приход") + len("приход")
+                                end_idx = body.rfind("Наличные",start_idx)
+                                print(body[start_idx:end_idx].strip())
                             elif "attachment" in content_disposition:
                                 download_attachment(part)
                     else:
@@ -84,7 +86,10 @@ for i in range(numOfMessages, numOfMessages - 10, -1):
                         # get the email body
                         body = msg.get_payload(decode=True).decode()
                         if content_type == "text/plain":
-                            print(body)
+                            start_idx = body.find("приход") + len("приход")
+                            end_idx = body.rfind("Наличные", start_idx)
+                            print(body[start_idx:end_idx].strip())
+
 
                     print("=" * 100)
 
