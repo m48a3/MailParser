@@ -89,8 +89,7 @@ for i in range(numOfMessages, numOfMessages - 10, -1):
                                 end_idx = body.rfind("Итог",start_idx)
                                 # print(body[start_idx:end_idx].strip())
                                 pattern = re.compile(
-                                    r'(\d+)\s+(.+?)\s+Цена\*Кол\s+(\d+\.\d+)\s+(\d+)\s+Сумма\s+(\d+\.\d+)\s+Способ расчёта\s+(.+?)\s+Предмет расчёта\s+(.+)')
-
+                                    r'(\d+)\s+(.+?)\s+Цена\*Кол\s+(\d+\.\d+)')
                                 products = []
                                 data = {'name':[]}
                                 df = pd.DataFrame(data)
@@ -113,7 +112,6 @@ for i in range(numOfMessages, numOfMessages - 10, -1):
                                 # print(rb.parse(df))
                                 rb = RuleBased()
                                 print(rb.parse(df))
-                                rb.parse(df).to_csv('my_data.csv', index=False, encoding='utf-8')
                             elif "attachment" in content_disposition:
                                 download_attachment(part)
                     else:
